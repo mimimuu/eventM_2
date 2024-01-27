@@ -119,11 +119,10 @@
     </div>
     <div class="row g-5">
       <div class="col">
-        <form class="needs-validation" novalidate>
-          <%# <div class="row g-3"> %>
+        <%= form_with model: @event, url: events_path, local: true do |f| %>
             <div class="col">
               <label for="place" class="form-label">場所</label>
-              <input type="text" class="form-control" id="place" placeholder="" value="" required>
+              <%= f.text_field :place, class:"form-control", id:"place", placeholder:"40文字まで", maxlength:"40" %>
               <div class="invalid-feedback">
                 Valid place is required.
               </div>
@@ -131,36 +130,55 @@
 
             <div class="col">
               <label for="spot" class="form-label">詳細</label>
-              <input type="text" class="form-control" id="spot" placeholder="" value="" required>
+              <%= f.text_field :spot, class:"form-control", id:"spot", placeholder:"" %>
             </div>
 
             <div class="col">
-              <label for="date" class="form-label">日にち</label>
-              <input type="text" class="form-control" id="date" placeholder="" value="" required>
+              <div class="d-flex align-items-center mt-4 mb-4">
+                <label for="date" class="form-label">日付</label>
+                <%= f.date_select( :date, 
+                       use_month_numbers: true,  # 月に数字（1から12）を使用
+                       prompt: { day: '日', month: '月', year: '年' },  # プロンプトの設定
+                       order: [:year, :month, :day],  # セレクトボックスの順序
+                       start_year: Time.now.year,  # 開始年
+                       end_year: (Time.now.year + 5),  # 終了年
+                  )%>
+              </div>
               <div class="invalid-feedback">
                    Date is required.
               </div>
             </div>
 
-            <div class="col">
+            <div class="col mb-4">
               <label for="start_time" class="form-label">開始時間</label>
-              <input type="text" class="form-control" id="start_time" placeholder="" value="" required>
+                <%= f.time_select(:start_time, 
+                        class: 'time-select', 
+                        twelve_hour: true,  # 12時間制表示を有効化
+                        use_minute_seconds: false,  # 秒を使用しない
+                        minute_step: 15  # 15分単位での選択を有効化
+                )%>
               <div class="invalid-feedback">
-                   Start time is required.
+                  Start time is required.
               </div>
-            </div>
-
-            <div class="col">
-              <label for="end_time" class="form-label">終了時間</label>
-              <input type="text" class="form-control" id="end_time" placeholder="" value="" required>
+              <label for="end_time" class="form-label"> ～ 終了時間</label>
+                <%= f.time_select(:end_time, 
+                        class: 'time-select', 
+                        twelve_hour: true,  # 12時間制表示を有効化
+                        use_minute_seconds: false,  # 秒を使用しない
+                        minute_step: 15  # 15分単位での選択を有効化
+                )%>
               <div class="invalid-feedback">
-                   End time is required.
+                  End time is required.
               </div>
             </div>
 
             <div class="col">
               <label for="fee" class="form-label">料金</label>
-              <input type="text" class="form-control" id="fee" placeholder="" value="" required>
+              
+              <div class="input-group has-validation">
+                <span class="input-group-text">¥</span>
+                <%= f.text_field :fee, class:"form-control", id:"fee", placeholder:"" %>
+              </div>
               <div class="invalid-feedback">
                    Fee is required.
               </div>
@@ -170,7 +188,8 @@
               <label for="booker_name" class="form-label">予約者</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="booker_name" placeholder="" required>
+                <%= f.text_field :booker, class:"form-control", id:"booker_name", placeholder:"" %>
+              </div>
               <div class="invalid-feedback">
                    Booker name is required.
               </div>
@@ -180,7 +199,7 @@
               <label for="payer_name" class="form-label">支払い者</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="payer_name" placeholder="" required>
+                <%= f.text_field :payer, class:"form-control", id:"payer_name", placeholder:"" %>
               <div class="invalid-feedback">
                    Payer name is required.
               </div>
@@ -188,12 +207,11 @@
 
             <div class="col">
               <label for="colum" class="form-label">備考欄</label>
-              <input type="text" class="form-control" id="colum" placeholder="" required>
+              <%= f.text_area :colum, class:"form-control", id:"colum", placeholder:"" %>
             </div>
             <hr class="my-4">
             <button class="w-100 btn btn-primary btn-lg" type="submit">登録する</button>
-          <%# </div> %>
-        </form>
+        <% end %>
       </div>
     </div>
   </main>

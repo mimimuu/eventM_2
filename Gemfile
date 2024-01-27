@@ -76,6 +76,7 @@ gem 'jquery-rails'
 gem 'mini_racer'
 gem 'devise'
 gem 'active_hash'
+gem 'pry'
 
 group :production do
   gem 'pg'
