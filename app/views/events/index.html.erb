@@ -59,6 +59,13 @@
       .bd-mode-toggle {
         z-index: 1500;
       }
+      #sidebar{
+        position: fixed;
+      }
+      .left-margin-20{
+        margin-left: calc(20vw - 12px);
+      }
+
     </style>
   </head>
   <body>
@@ -85,69 +92,77 @@
         <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
       </symbol>
     </svg>
-    <div class="d-flex flex-nowrap main">
-      <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 20vw; height: 100vh;">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-          <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-          <span class="fs-4">eventM</span>
-        </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a href="#" class="d-flex nav-link text-white" aria-current="page">
-              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#" class="d-flex nav-link text-white">
-              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-              Members
-            </a>
-          </li>
-          <li>
-            <a href="<%= new_event_path %>" class="d-flex nav-link text-white">
-              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-              Events
-            </a>
-          </li>
-          <li>
-            <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "d-flex nav-link text-white"%>
-          </li>
-        </ul>
-        <hr>
-        <div class="dropdown">
-          <a href="#" class="d-flex align-items-center text-white text-decoration-none" >
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong><%= current_user.name %></strong>
+    <div class="d-flex container-fluid">
+      <div class="row">
+        <div id = "sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 20vw; height: 100vh;">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+            <span class="fs-4">eventM</span>
           </a>
-        </div>
-      </div>
-
-      <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 80vw">
-        <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
-          <span class="fs-5 fw-semibold">Team name</span>
-        </a>
-        <% @events.each do |event| %>
-          <div class="list-group list-group-flush border-bottom scrollarea ">
-          <% if event.state_id == 1%>
-            <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-action py-3 lh-sm">
-          <% else %>
-            <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-dark list-group-item-action py-3 lh-sm">
-          <% end %>
-              <div class="d-flex w-100 align-items-center justify-content-between">
-                <strong class="mb-1"><%= event.date.strftime('%Y/%m/%d(%a)') %> <%= event.start_time.strftime('%H:%M')%>-<%=event.end_time.strftime('%H:%M') %></strong>
-                <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
-              </div>
-              <div class="col-10 mb-1 small"><%= event.place %>/
-                <% if event.spot %>
-                  <%= event.spot %>/
-                <% end %>
-                ¥<%= event.fee %>/<%= event.payer %>/<%= event.booker %>
-              </div>
+          <hr>
+          <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+              <a href="#" class="d-flex nav-link text-white" aria-current="page">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#" class="d-flex nav-link text-white">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                Members
+              </a>
+            </li>
+            <li>
+              <a href="<%= new_event_path %>" class="d-flex nav-link text-white">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                Events
+              </a>
+            </li>
+            <li>
+              <a href="#" class="d-flex nav-link text-white">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                Attendance
+              </a>
+            </li>
+            <li>
+              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "d-flex nav-link text-white"%>
+            </li>
+          </ul>
+          <hr>
+          <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none" >
+              <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+              <strong><%= current_user.name %></strong>
             </a>
           </div>
-        <% end %>
+        </div>
+
+        <div class="left-margin-20 d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary main" style="width: 80vw">
+          <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+            <span class="fs-5 fw-semibold">Team name</span>
+          </a>
+          <% @events.each do |event| %>
+            <div class="list-group list-group-flush border-bottom scrollarea ">
+            <% if event.state_id == 1%>
+              <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-action py-3 lh-sm">
+            <% else %>
+              <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-dark list-group-item-action py-3 lh-sm">
+            <% end %>
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                  <strong class="mb-1"><%= event.date.strftime('%Y/%m/%d(%a)') %> <%= event.start_time.strftime('%H:%M')%>-<%=event.end_time.strftime('%H:%M') %></strong>
+                  <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
+                </div>
+                <div class="col-10 mb-1 small"><%= event.place %>
+                  <% if event.spot %>
+                    <%= event.spot %>
+                  <% end %>
+                  /¥<%= event.fee %>/購入者:<%= event.payer %>
+                </div>
+              </a>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
