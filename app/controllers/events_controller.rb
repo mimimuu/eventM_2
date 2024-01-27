@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   def index
+    @events = Event.order('date DESC, start_time DESC, end_time DESC')
   end
 
   def new
