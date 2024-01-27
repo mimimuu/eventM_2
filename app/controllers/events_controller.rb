@@ -23,7 +23,7 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
-    return unless current_user.admin_id == 3
+    return redirect_to root_path unless current_user.admin_id == 3
   end
 
   def update
@@ -37,7 +37,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event = Event.find(params[:id])
-    if current_user.admin_id == 3
+    if current_user.admin_id == 3 && user_signed_in?
       @event.destroy 
       redirect_to root_path
     end
