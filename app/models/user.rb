@@ -6,5 +6,10 @@ class User < ApplicationRecord
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :admin
+
+  validates :name, presence: true
+  validates :password,
+            format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i,
+                      message: 'is invalid. Input half-width alphanumeric characters.' }
   validates :admin_id, numericality: { other_than: 1 , message: "can't be blank"} 
 end
