@@ -117,7 +117,7 @@
         </ul>
         <hr>
         <div class="dropdown">
-          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none" >
             <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
             <strong><%= current_user.name %></strong>
           </a>
@@ -129,17 +129,22 @@
           <span class="fs-5 fw-semibold">Team name</span>
         </a>
         <% @events.each do |event| %>
-          <div class="list-group list-group-flush border-bottom scrollarea">
+          <div class="list-group list-group-flush border-bottom scrollarea ">
+          <% if event.state_id == 1%>
             <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-action py-3 lh-sm">
+          <% else %>
+            <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-dark list-group-item-action py-3 lh-sm">
+          <% end %>
               <div class="d-flex w-100 align-items-center justify-content-between">
                 <strong class="mb-1"><%= event.date.strftime('%Y/%m/%d(%a)') %> <%= event.start_time.strftime('%H:%M')%>-<%=event.end_time.strftime('%H:%M') %></strong>
                 <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
               </div>
               <div class="col-10 mb-1 small"><%= event.place %>/
-              <% if event.spot %>
-                <%= event.spot %>/
-              <% end %>
-                ¥<%= event.fee %>/<%= event.payer %>/<%= event.booker %></div>
+                <% if event.spot %>
+                  <%= event.spot %>/
+                <% end %>
+                ¥<%= event.fee %>/<%= event.payer %>/<%= event.booker %>
+              </div>
             </a>
           </div>
         <% end %>

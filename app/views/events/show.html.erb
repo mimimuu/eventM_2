@@ -209,12 +209,19 @@
               <label for="colum" class="form-label">備考欄</label>
               <%= f.text_area :colum, class:"form-control", id:"colum", placeholder:"" %>
             </div>
+
+            <div class="col mt-4">
+              <label for="state_id" class="form-label">ステータス</label>
+              <%= f.collection_select(:state_id, State.all, :id, :name, {}, {class:"select-box", id:"item-scheduled-delivery"}) %>
+            </div>
             <hr class="my-4">
             <div class = "row justify-content-between">
-            <div class="col"></div>
-              <%= link_to '更新', edit_event_path(@event.id), class: 'w-25 btn btn-lg btn-primary' %>
-              <div class="col"></div>
-              <%= link_to '削除', event_path(@event.id), data: {turbo_method: :delete}, class: 'w-25 btn btn-lg btn-primary' %>
+              <% if current_user.admin_id == 3%>
+                <div class="col"></div>
+                <%= link_to '編集', edit_event_path(@event.id), class: 'w-25 btn btn-lg btn-primary' %>
+                <div class="col"></div>
+                <%= link_to '削除', event_path(@event.id), data: {turbo_method: :delete}, class: 'w-25 btn btn-lg btn-primary' %>
+              <% end %>
               <div class="col"></div>
               <%= link_to 'back', root_path, class: 'w-25 btn btn-lg btn-secondary' %>
               <div class="col"></div>
