@@ -9,12 +9,23 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(events_params)
-    binding.pry
     if @event.valid?
       @event.save
       redirect_to root_path
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @event = Event.find(params[:id])
+  end
+
+  def destroy
+    @event = Event.find(params[:id])
+    if current_user.admin.id = 3
+      @event.destroy 
+      redirect_to root_path
     end
   end
 

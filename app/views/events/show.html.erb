@@ -211,8 +211,10 @@
             </div>
             <hr class="my-4">
             <div class = "row justify-content-between">
+            <div class="col"></div>
+              <%= link_to '更新', edit_event_path(@event.id), class: 'w-25 btn btn-lg btn-primary' %>
               <div class="col"></div>
-              <button class="w-25 btn btn-primary btn-lg justify-content-md-center" type="submit">登録</button>
+              <%= link_to '削除', event_path(@event.id), data: {turbo_method: :delete}, class: 'w-25 btn btn-lg btn-primary' %>
               <div class="col"></div>
               <%= link_to 'back', root_path, class: 'w-25 btn btn-lg btn-secondary' %>
               <div class="col"></div>
