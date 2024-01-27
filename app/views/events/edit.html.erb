@@ -119,104 +119,110 @@
     </div>
     <div class="row g-5">
       <div class="col">
-        <%= form_with model: @event, url: events_path, local: true do |f| %>
-          <div class="col">
-            <label for="place" class="form-label">場所</label>
-            <%= f.text_field :place, class:"form-control", id:"place", placeholder:"40文字まで", maxlength:"40" %>
-            <div class="invalid-feedback">
-              Valid place is required.
+        <%= form_with model: @event, url: event_path, local: true do |f| %>
+            <div class="col">
+              <label for="place" class="form-label">場所</label>
+              <%= f.text_field :place, class:"form-control", id:"place", placeholder:"40文字まで", maxlength:"40" %>
+              <div class="invalid-feedback">
+                Valid place is required.
+              </div>
             </div>
-          </div>
 
-          <div class="col">
-            <label for="spot" class="form-label">詳細</label>
-            <%= f.text_field :spot, class:"form-control", id:"spot", placeholder:"" %>
-          </div>
+            <div class="col">
+              <label for="spot" class="form-label">詳細</label>
+              <%= f.text_field :spot, class:"form-control", id:"spot", placeholder:"" %>
+            </div>
 
-          <div class="col">
-            <div class="d-flex align-items-center mt-4 mb-4">
-              <label for="date" class="form-label">日付</label>
-              <%= f.date_select( :date, 
-                      use_month_numbers: true,  # 月に数字（1から12）を使用
-                      prompt: { day: '日', month: '月', year: '年' },  # プロンプトの設定
-                      order: [:year, :month, :day],  # セレクトボックスの順序
-                      start_year: Time.now.year,  # 開始年
-                      end_year: (Time.now.year + 5),  # 終了年
+            <div class="col">
+              <div class="d-flex align-items-center mt-4 mb-4">
+                <label for="date" class="form-label">日付</label>
+                <%= f.date_select( :date, 
+                       use_month_numbers: true,  # 月に数字（1から12）を使用
+                       prompt: { day: '日', month: '月', year: '年' },  # プロンプトの設定
+                       order: [:year, :month, :day],  # セレクトボックスの順序
+                       start_year: Time.now.year,  # 開始年
+                       end_year: (Time.now.year + 5),  # 終了年
+                  )%>
+              </div>
+              <div class="invalid-feedback">
+                   Date is required.
+              </div>
+            </div>
+
+            <div class="col mb-4">
+              <label for="start_time" class="form-label">開始時間</label>
+                <%= f.time_select(:start_time, 
+                        class: 'time-select', 
+                        twelve_hour: true,  # 12時間制表示を有効化
+                        use_minute_seconds: false,  # 秒を使用しない
+                        minute_step: 15  # 15分単位での選択を有効化
                 )%>
+              <div class="invalid-feedback">
+                  Start time is required.
+              </div>
+              <label for="end_time" class="form-label"> ～ 終了時間</label>
+                <%= f.time_select(:end_time, 
+                        class: 'time-select', 
+                        twelve_hour: true,  # 12時間制表示を有効化
+                        use_minute_seconds: false,  # 秒を使用しない
+                        minute_step: 15  # 15分単位での選択を有効化
+                )%>
+              <div class="invalid-feedback">
+                  End time is required.
+              </div>
             </div>
-            <div class="invalid-feedback">
-                  Date is required.
-            </div>
-          </div>
 
-          <div class="col mb-4">
-            <label for="start_time" class="form-label">開始時間</label>
-              <%= f.time_select(:start_time, 
-                      class: 'time-select', 
-                      twelve_hour: true,  # 12時間制表示を有効化
-                      use_minute_seconds: false,  # 秒を使用しない
-                      minute_step: 15  # 15分単位での選択を有効化
-              )%>
-            <div class="invalid-feedback">
-                Start time is required.
+            <div class="col">
+              <label for="fee" class="form-label">料金</label>
+              
+              <div class="input-group has-validation">
+                <span class="input-group-text">¥</span>
+                <%= f.text_field :fee, class:"form-control", id:"fee", placeholder:"" %>
+              </div>
+              <div class="invalid-feedback">
+                   Fee is required.
+              </div>
             </div>
-            <label for="end_time" class="form-label"> ～ 終了時間</label>
-              <%= f.time_select(:end_time, 
-                      class: 'time-select', 
-                      twelve_hour: true,  # 12時間制表示を有効化
-                      use_minute_seconds: false,  # 秒を使用しない
-                      minute_step: 15  # 15分単位での選択を有効化
-              )%>
-            <div class="invalid-feedback">
-                End time is required.
-            </div>
-          </div>
 
-          <div class="col">
-            <label for="fee" class="form-label">料金</label>
-            <div class="input-group has-validation">
-              <span class="input-group-text">¥</span>
-              <%= f.text_field :fee, class:"form-control", id:"fee", placeholder:"" %>
+            <div class="col">
+              <label for="booker_name" class="form-label">予約者</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <%= f.text_field :booker, class:"form-control", id:"booker_name", placeholder:"" %>
+              </div>
+              <div class="invalid-feedback">
+                   Booker name is required.
+              </div>
             </div>
-            <div class="invalid-feedback">
-                  Fee is required.
-            </div>
-          </div>
 
-          <div class="col">
-            <label for="booker_name" class="form-label">予約者</label>
-            <div class="input-group has-validation">
-              <span class="input-group-text">@</span>
-              <%= f.text_field :booker, class:"form-control", id:"booker_name", placeholder:"" %>
+            <div class="col">
+              <label for="payer_name" class="form-label">支払い者</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <%= f.text_field :payer, class:"form-control", id:"payer_name", placeholder:"" %>
+              <div class="invalid-feedback">
+                   Payer name is required.
+              </div>
             </div>
-            <div class="invalid-feedback">
-                  Booker name is required.
-            </div>
-          </div>
 
-          <div class="col">
-            <label for="payer_name" class="form-label">支払い者</label>
-            <div class="input-group has-validation">
-              <span class="input-group-text">@</span>
-              <%= f.text_field :payer, class:"form-control", id:"payer_name", placeholder:"" %>
+            <div class="col">
+              <label for="colum" class="form-label">備考欄</label>
+              <%= f.text_area :colum, class:"form-control", id:"colum", placeholder:"" %>
             </div>
-            <div class="invalid-feedback">
-                  Payer name is required.
-            </div>
-          </div>
 
-          <div class="col">
-            <label for="colum" class="form-label">備考欄</label>
-            <%= f.text_area :colum, class:"form-control", id:"colum", placeholder:"" %>
-          </div>
-          <hr class="my-4">
-          <div class = "row justify-content-between">
-            <div class="col"></div>
-            <button class="w-25 btn btn-primary btn-lg justify-content-md-center" type="submit">登録</button>
-            <div class="col"></div>
-            <%= link_to 'back', root_path, class: 'w-25 btn btn-lg btn-secondary' %>
-            <div class="col"></div>
-          </div>
+            <div class="col mt-4">
+              <label for="state_id" class="form-label">ステータス</label>
+              <%= f.collection_select(:state_id, State.all, :id, :name, {}, {class:"select-box", id:"item-scheduled-delivery"}) %>
+            </div>
+
+            <hr class="my-4">
+            <div class = "row justify-content-between">
+              <div class="col"></div>
+              <button class="w-25 btn btn-primary btn-lg justify-content-md-center" type="submit">変更</button>
+              <div class="col"></div>
+              <%= link_to 'back', event_path(@event.id), class: 'w-25 btn btn-lg btn-secondary' %>
+              <div class="col"></div>
+            </div>
         <% end %>
       </div>
     </div>

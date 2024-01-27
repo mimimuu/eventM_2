@@ -62,31 +62,6 @@
     </style>
   </head>
   <body>
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-            Light
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-            Dark
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
-            Auto
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-      </ul>
-    </div>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
       <symbol id="bootstrap" viewBox="0 0 118 94">
         <title>Bootstrap</title>
@@ -142,7 +117,7 @@
         </ul>
         <hr>
         <div class="dropdown">
-          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none" >
             <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
             <strong><%= current_user.name %></strong>
           </a>
@@ -153,64 +128,26 @@
         <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
           <span class="fs-5 fw-semibold">Team name</span>
         </a>
-        <div class="list-group list-group-flush border-bottom scrollarea">
-          <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">2024/01/27(土) 13:00-16:30</strong>
-              <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
-            </div>
-            <div class="col-10 mb-1 small">東山テニスコート/Aコート/¥2100/支払者/予約者</div>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">2024/01/27(土) 13:00-16:30</strong>
-              <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
-            </div>
-            <div class="col-10 mb-1 small">東山テニスコート/Aコート/¥2100/支払者/予約者</div>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">2024/01/27(土) 13:00-16:30</strong>
-              <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
-            </div>
-            <div class="col-10 mb-1 small">東山テニスコート/Aコート/¥2100/支払者/予約者</div>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">2024/01/27(土) 13:00-16:30</strong>
-              <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
-            </div>
-            <div class="col-10 mb-1 small">東山テニスコート/Aコート/¥2100/支払者/予約者</div>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">2024/01/27(土) 13:00-16:30</strong>
-              <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
-            </div>
-            <div class="col-10 mb-1 small">東山テニスコート/Aコート/¥2100/支払者/予約者</div>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">2024/01/27(土) 13:00-16:30</strong>
-              <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
-            </div>
-            <div class="col-10 mb-1 small">東山テニスコート/Aコート/¥2100/支払者/予約者</div>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">2024/01/27(土) 13:00-16:30</strong>
-              <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
-            </div>
-            <div class="col-10 mb-1 small">東山テニスコート/Aコート/¥2100/支払者/予約者</div>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">2024/01/27(土) 13:00-16:30</strong>
-              <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
-            </div>
-            <div class="col-10 mb-1 small">東山テニスコート/Aコート/¥2100/支払者/予約者</div>
-          </a>
-        </div>
+        <% @events.each do |event| %>
+          <div class="list-group list-group-flush border-bottom scrollarea ">
+          <% if event.state_id == 1%>
+            <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-action py-3 lh-sm">
+          <% else %>
+            <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-dark list-group-item-action py-3 lh-sm">
+          <% end %>
+              <div class="d-flex w-100 align-items-center justify-content-between">
+                <strong class="mb-1"><%= event.date.strftime('%Y/%m/%d(%a)') %> <%= event.start_time.strftime('%H:%M')%>-<%=event.end_time.strftime('%H:%M') %></strong>
+                <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
+              </div>
+              <div class="col-10 mb-1 small"><%= event.place %>/
+                <% if event.spot %>
+                  <%= event.spot %>/
+                <% end %>
+                ¥<%= event.fee %>/<%= event.payer %>/<%= event.booker %>
+              </div>
+            </a>
+          </div>
+        <% end %>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
