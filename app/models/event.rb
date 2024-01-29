@@ -1,5 +1,7 @@
 class Event < ApplicationRecord
   belongs_to :user
+  has_many :participants
+  has_many :users, through: :participants
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :state

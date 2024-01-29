@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.order('date ASC, start_time ASC, end_time ASC')
+    @event = Event.new
+    @events = Event.includes(:user).order('date ASC, start_time ASC, end_time ASC')
   end
 
   def new
