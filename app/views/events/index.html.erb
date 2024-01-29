@@ -150,8 +150,16 @@
               <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-dark list-group-item-action py-3 lh-sm">
             <% end %>
                 <div class="d-flex w-100 align-items-center justify-content-between">
-                  <strong class="mb-1"><%= event.date.strftime('%Y/%m/%d(%a)') %> <%= event.start_time.strftime('%H:%M')%>-<%=event.end_time.strftime('%H:%M') %></strong>
-                  <small class="text-body-secondary">参加: 5, 不参加: 5, 未定: 5</small>
+                  <strong class="mb-1">
+                    <%= event.date.strftime('%Y/%m/%d(%a)') %>
+                    <%= event.start_time.strftime('%H:%M-')%>
+                    <%=event.end_time.strftime('%H:%M') %>
+                  </strong>
+                  <small class="text-body-secondary">
+                    参加: <%= event.count.attendance %>,
+                    不参加: <%= event.count.absence %>,
+                    未定: <%= event.count.undecided %>
+                  </small>
                 </div>
                 <div class="col-10 mb-1 small"><%= event.place %>
                   <% if event.spot %>

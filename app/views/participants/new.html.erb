@@ -146,37 +146,50 @@
             <%= form_with(model: @participant, url: event_participants_path(event.id), local: true) do |f| %>
               <div class="d-flex list-group list-group-flush border-bottom scrollarea ">
               <% if event.state_id == 1%>
-                <a href="<%= event_path(event.id) %>" class="d-flex list-group-item list-group-item-action py-3 lh-sm" style="position: relative; z-index: 1;">
+                <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-action py-3 lh-sm">
               <% else %>
                 <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-dark list-group-item-action py-3 lh-sm">
               <% end %>
                   <div class="d-flex w-100 align-items-center justify-content-between">
-                    <strong class="mb-1"><%= event.date.strftime('%Y/%m/%d(%a)') %> <%= event.start_time.strftime('%H:%M')%>-<%=event.end_time.strftime('%H:%M') %></strong>
+                    <strong class="mb-1">
+                      <%= event.date.strftime('%Y/%m/%d(%a)') %>
+                      <%= event.start_time.strftime('%H:%M-')%>
+                      <%=event.end_time.strftime('%H:%M') %>
+                    </strong>
+                    <small class="text-body-secondary">
+                      <%if @existing_participant.attendance_id == 1%>
+                        <%= "参加"%>
+                      <%elsif @existing_participant.attendance_id == 2%>
+                        <%= "不参加"%>
+                      <% else %>
+                        <%= "未定"%>
+                      <% end %>
+                    </small>
                   </div>
-                  <div class="col-10 mb-1 small"><%= event.place %>
+                  <div class="col-10 mb-1 small">
+                    <%= event.place %>
                     <% if event.spot %>
                       <%= event.spot %>
                     <% end %>
                     /¥<%= event.fee %>/購入者:<%= event.payer %>
                   </div>
                 </a>
-                    <small class="text-body-secondary">
-                      <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group" >
-                        <%= f.radio_button :attendance_id, 1, id: 'attendance_id_1' %>
-                        <%= f.label :attendance_id_1, '参加',class: 'w-25' , disabled: @participant.attendance_id == 1%>
+                <div class="text-body-secondary">
+                  <div class="btn-group btn-group-sm small" role="group" aria-label="Basic radio toggle button group" >
+                    <%= f.radio_button :attendance_id, 1, id: 'attendance_id_1' %>
+                    <%= f.label :attendance_id_1, '参加',class: 'w-40' %>
 
-                        <%= f.radio_button :attendance_id, 2, id: 'attendance_id_2' %>
-                        <%= f.label :attendance_id_2, '不参加', class: 'w-35', disabled: @participant.attendance_id == 2 %>
+                    <%= f.radio_button :attendance_id, 2, id: 'attendance_id_2' %>
+                    <%= f.label :attendance_id_2, '不参加', class: 'w-40' %>
 
-                        <%= f.radio_button :attendance_id, 3, id: 'attendance_id_3' %>
-                        <%= f.label :attendance_id_3, '未回答', class: 'w-35', disabled: @participant.attendance_id == 3%>
-                      </div>
-                    </small>
-                    <%= f.submit '回答', class: 'w-25 btn btn-primary' %>
+                    <%= f.radio_button :attendance_id, 3, id: 'attendance_id_3' %>
+                    <%= f.label :attendance_id_3, '未定', class: 'w-40'%>
+                  </div>
+                </div>
+                <%= f.submit '回答', class: 'w-25 btn btn-primary' %>
               </div>
             <% end %>
           <% end %>
-          
         </div>
       </div>
     </div>

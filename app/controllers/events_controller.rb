@@ -1,7 +1,14 @@
 class EventsController < ApplicationController
   def index
-    @event = Event.new
     @events = Event.includes(:user).order('date ASC, start_time ASC, end_time ASC')
+    
+    @events.each do |event|
+      count = event.count || event.build_count
+      attendance = event.participants.where(attendance_id: 1).count
+      absence =event.participants.where(attendance_id: 2).count
+      undecided =event.participants.where(attendance_id: 3).count
+      count.update(attendance: attendance, absence: absence, undecided: undecided)
+    end
   end
 
   def new
@@ -52,4 +59,5 @@ class EventsController < ApplicationController
   def events_update_params
     params.require(:event).permit(:date, :start_time, :end_time, :place, :spot, :fee, :payer, :booker, :colum, :state_id).merge(user_id: current_user.id)
   end
+
 end
