@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_26_064753) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_28_040054) do
+  create_table "counts", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "attendance"
+    t.integer "absence"
+    t.integer "undecided"
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_counts_on_event_id"
+  end
+
   create_table "events", charset: "utf8mb4", force: :cascade do |t|
     t.date "date", null: false
     t.time "start_time", null: false
@@ -28,6 +38,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_26_064753) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "participants", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "attendance_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_participants_on_event_id"
+    t.index ["user_id"], name: "index_participants_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", default: "", null: false
@@ -42,5 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_26_064753) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "counts", "events"
   add_foreign_key "events", "users"
+  add_foreign_key "participants", "events"
+  add_foreign_key "participants", "users"
 end
