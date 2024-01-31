@@ -1,13 +1,13 @@
 class EventsController < ApplicationController
   def index
     @events = Event.includes(:user).order('date ASC, start_time ASC, end_time ASC')
-    
+
     @events.each do |event|
       count = event.count || event.build_count
       attendance = event.participants.where(attendance_id: 1).count
-      absence =event.participants.where(attendance_id: 2).count
-      undecided =event.participants.where(attendance_id: 3).count
-      count.update(attendance: attendance, absence: absence, undecided: undecided)
+      absence = event.participants.where(attendance_id: 2).count
+      undecided = event.participants.where(attendance_id: 3).count
+      count.update(attendance:, absence:, undecided:)
     end
   end
 
@@ -31,7 +31,7 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
-    return redirect_to root_path unless current_user.admin_id == 3
+    redirect_to root_path unless current_user.admin_id == 3
   end
 
   def update
@@ -45,19 +45,36 @@ class EventsController < ApplicationController
 
   def destroy
     @event = Event.find(params[:id])
-    if current_user.admin_id == 3 && user_signed_in?
-      @event.destroy 
+    return unless current_user.admin_id == 3 && user_signed_in?
+
+    if @event.count.valid?
+      @event.count.destroy
+      if @event.participants.exists?
+        @event.participants.destroy_all
+        if @event.valid?
+          @event.destroy
+        else
+          redirect_to root_path
+        end
+      else
+        redirect_to root_path
+      end
+    else
       redirect_to root_path
     end
+    redirect_to root_path
   end
 
   private
+
   def events_params
-    params.require(:event).permit(:date, :start_time, :end_time, :place, :spot, :fee, :payer, :booker, :colum).merge(user_id: current_user.id, state_id: 1)
+    params.require(:event).permit(:date, :start_time, :end_time, :place, :spot, :fee, :payer, :booker, :colum).merge(
+      user_id: current_user.id, state_id: 1
+    )
   end
 
   def events_update_params
-    params.require(:event).permit(:date, :start_time, :end_time, :place, :spot, :fee, :payer, :booker, :colum, :state_id).merge(user_id: current_user.id)
+    params.require(:event).permit(:date, :start_time, :end_time, :place, :spot, :fee, :payer, :booker, :colum,
+                                  :state_id).merge(user_id: current_user.id)
   end
-
 end

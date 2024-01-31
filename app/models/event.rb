@@ -15,5 +15,4 @@ class Event < ApplicationRecord
   validates :payer, presence: true
   validates :booker, presence: true
   validates :state_id, presence: true
-
 end
