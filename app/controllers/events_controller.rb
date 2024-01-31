@@ -80,8 +80,7 @@ class EventsController < ApplicationController
                                   :state_id).merge(user_id: current_user.id)
   end
 
-  ADMIN_ID_FOR_ADMIN_USER = 3
   def current_user_admin?
-    current_user.admin_id == ADMIN_ID_FOR_ADMIN_USER 
+    current_user.admin_id == 3 ||  current_user.admin_id == "3"
   end
 end
