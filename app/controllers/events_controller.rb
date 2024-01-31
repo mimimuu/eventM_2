@@ -26,7 +26,8 @@ class EventsController < ApplicationController
   end
 
   def show
-    @admin = 3
+    @admin_int = 3
+    @admin_str = "3"
     @event = Event.find(params[:id])
   end
 

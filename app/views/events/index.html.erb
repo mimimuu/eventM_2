@@ -144,7 +144,7 @@
         </a>
         <% @events.each do |event| %>
           <div class="list-group list-group-flush border-bottom scrollarea ">
-          <% if event.state_id == 1%>
+          <% if event.state_id == 1 || event.state_id == "1" %>
             <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-action py-3 lh-sm">
           <% else %>
             <a href="<%= event_path(event.id) %>" class="list-group-item list-group-item-dark list-group-item-action py-3 lh-sm">
