@@ -81,7 +81,6 @@ class EventsController < ApplicationController
 
   ADMIN_ID_FOR_ADMIN_USER = 3
   def current_user_admin?
-    binding.pry
     current_user.admin_id == ADMIN_ID_FOR_ADMIN_USER 
   end
 end
