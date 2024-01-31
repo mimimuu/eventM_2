@@ -27,7 +27,7 @@ class EventsController < ApplicationController
 
   def show
     @admin_int = 3
-    @admin_str = "3"
+    @admin_str = '3'
     @event = Event.find(params[:id])
   end
 
@@ -81,6 +81,6 @@ class EventsController < ApplicationController
   end
 
   def current_user_admin?
-    current_user.admin_id == 3 ||  current_user.admin_id == "3"
+    current_user.admin_id == 3 || current_user.admin_id == '3'
   end
 end
