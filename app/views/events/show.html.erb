@@ -222,6 +222,7 @@
             </small>
             <hr class="my-4">
             <div class = "row justify-content-between">
+            <%= current_user.admin_id %>
               <% if current_user.admin_id == 3%>
                 <div class="col"></div>
                 <%= link_to '編集', edit_event_path(@event.id), class: 'w-25 btn btn-lg btn-primary' %>
