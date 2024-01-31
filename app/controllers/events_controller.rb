@@ -46,7 +46,21 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     if current_user.admin_id == 3 && user_signed_in?
-      @event.destroy 
+      if @event.count.valid?
+        @event.count.destroy
+        if @event.participants.exists?
+          @event.participants.destroy_all
+          if @event.valid?
+            @event.destroy
+          else
+            redirect_to root_path
+          end
+        else
+          redirect_to root_path
+        end
+      else
+        redirect_to root_path
+      end
       redirect_to root_path
     end
   end

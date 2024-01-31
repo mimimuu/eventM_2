@@ -214,6 +214,12 @@
               <label for="state_id" class="form-label">ステータス</label>
               <%= f.collection_select(:state_id, State.all, :id, :name, {}, {class:"select-box", id:"item-scheduled-delivery"}) %>
             </div>
+
+            <small class="text-body-secondary">
+                    参加: <%= @event.count.attendance %>,
+                    不参加: <%= @event.count.absence %>,
+                    未定: <%= @event.count.undecided %>
+            </small>
             <hr class="my-4">
             <div class = "row justify-content-between">
               <% if current_user.admin_id == 3%>

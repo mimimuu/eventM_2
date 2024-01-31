@@ -2,6 +2,7 @@ class ParticipantsController < ApplicationController
 
   def new
     @events = Event.includes(:user).order('date ASC, start_time ASC, end_time ASC')
+    @participant = Participant.new()
     @participants = []
     @events.each do |event|
       @existing_participant = event.participants.find_by(user_id: current_user.id) || event.participants.create(user: current_user, attendance_id: 3)
@@ -23,7 +24,7 @@ class ParticipantsController < ApplicationController
   private
 
   def participant_update_params
-    params.require(:participant).permit(:attendance_id)
+    params.require(:participant).permit(:attendance_id).merge(user_id: current_user.id, event_id: params[:event_id])
   end
 
 end

@@ -142,7 +142,7 @@
           <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
             <span class="fs-5 fw-semibold">Team name</span>
           </a>
-          <% @events.each do |event| %>
+          <% @events.zip(@participants) do |event ,participant | %>
             <%= form_with(model: @participant, url: event_participants_path(event.id), local: true) do |f| %>
               <div class="d-flex list-group list-group-flush border-bottom scrollarea ">
               <% if event.state_id == 1%>
@@ -157,9 +157,9 @@
                       <%=event.end_time.strftime('%H:%M') %>
                     </strong>
                     <small class="text-body-secondary">
-                      <%if @existing_participant.attendance_id == 1%>
+                      <%if participant.attendance_id == 1%>
                         <%= "参加"%>
-                      <%elsif @existing_participant.attendance_id == 2%>
+                      <%elsif participant.attendance_id == 2%>
                         <%= "不参加"%>
                       <% else %>
                         <%= "未定"%>
@@ -174,6 +174,7 @@
                     /¥<%= event.fee %>/購入者:<%= event.payer %>
                   </div>
                 </a>
+                <% if event.state_id == 1 %>
                 <div class="text-body-secondary">
                   <div class="btn-group btn-group-sm small" role="group" aria-label="Basic radio toggle button group" >
                     <%= f.radio_button :attendance_id, 1, id: 'attendance_id_1' %>
@@ -187,6 +188,7 @@
                   </div>
                 </div>
                 <%= f.submit '回答', class: 'w-25 btn btn-primary' %>
+                <% end %>
               </div>
             <% end %>
           <% end %>
