@@ -26,12 +26,13 @@ class EventsController < ApplicationController
   end
 
   def show
+    @admin = 3
     @event = Event.find(params[:id])
   end
 
   def edit
     @event = Event.find(params[:id])
-    redirect_to root_path unless current_user.admin_id == 3
+    redirect_to root_path unless current_user_admin?
   end
 
   def update
@@ -45,7 +46,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event = Event.find(params[:id])
-    return unless current_user.admin_id == 3 && user_signed_in?
+    return unless current_user_admin? && user_signed_in?
 
     if @event.count.valid?
       @event.count.destroy
@@ -76,5 +77,11 @@ class EventsController < ApplicationController
   def events_update_params
     params.require(:event).permit(:date, :start_time, :end_time, :place, :spot, :fee, :payer, :booker, :colum,
                                   :state_id).merge(user_id: current_user.id)
+  end
+
+  ADMIN_ID_FOR_ADMIN_USER = 3
+  def current_user_admin?
+    binding.pry
+    current_user.admin_id == ADMIN_ID_FOR_ADMIN_USER 
   end
 end

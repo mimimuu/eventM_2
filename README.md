@@ -58,10 +58,10 @@ adminユーザー
 - テスト
 
 # ローカルでの動作方法
-以下のコマンドを順に実行
-% git clone https://github.com/mimimuu/eventM_2
-% cd eventM_2
-% bundle install
+以下のコマンドを順に実行  
+% git clone https://github.com/mimimuu/eventM_2  
+% cd eventM_2  
+% bundle install  
 
 
 # 工夫したポイント
