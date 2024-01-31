@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :events , through: :participants
+  has_many :events, through: :participants
   has_many :participants
 
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -13,5 +13,5 @@ class User < ApplicationRecord
   validates :password,
             format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i,
                       message: 'is invalid. Input half-width alphanumeric characters.' }
-  validates :admin_id, numericality: { other_than: 1 , message: "can't be blank"} 
+  validates :admin_id, numericality: { other_than: 1, message: "can't be blank" }
 end
